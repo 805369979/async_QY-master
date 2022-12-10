@@ -243,7 +243,7 @@ public abstract class AbstractNode<T,V> implements IWorker<T,V>, ICallback<T,V> 
 
     private void doDependsOneJob(AbstractNode dependWrapper,Context context) {
         if (ResultState.TIMEOUT == dependWrapper.getWorkResult().getResultState()) {
-            workResult = defaultResult();
+            workResult = timeoutResult();
             fastFail(INIT, null);
         } else if (ResultState.EXCEPTION == dependWrapper.getWorkResult().getResultState()) {
             workResult = defaultExResult(dependWrapper.getWorkResult().getEx());
@@ -301,7 +301,7 @@ public abstract class AbstractNode<T,V> implements IWorker<T,V>, ICallback<T,V> 
                 break;
             }
             if (ResultState.TIMEOUT == tempWorkResult.getResultState()) {
-                workResult = defaultResult();
+                workResult = timeoutResult();
                 hasError = true;
                 break;
             }
@@ -380,7 +380,7 @@ public abstract class AbstractNode<T,V> implements IWorker<T,V>, ICallback<T,V> 
             return workResult;
         }
     }
-    private WorkResult<V> defaultResult() {
+    private WorkResult<V> timeoutResult() {
         workResult.setResultState(ResultState.TIMEOUT);
         workResult.setResult(this.defaultValue());
         return workResult;
