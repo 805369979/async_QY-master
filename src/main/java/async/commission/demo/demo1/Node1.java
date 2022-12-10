@@ -4,27 +4,19 @@ import async.commission.entity.Context;
 import async.commission.entity.WorkResult;
 import async.commission.executor.timer.SystemClock;
 import async.commission.template.AbstractNode;
-import lombok.Builder;
-import lombok.Data;
+import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Map;
 
 /**
  * 秦同学
  */
-@Data
-@Builder
+@Component
 public class Node1 extends AbstractNode<String,String> {
 
     @Override
     public String action(Context context,String param, Map<String, AbstractNode<String,String>> nodes) throws InterruptedException {
         return this.getTaskName() + "执行完成";
-    }
-
-    @Override
-    public String nodeName() {
-        return "node1";
     }
 
     /**
@@ -33,16 +25,16 @@ public class Node1 extends AbstractNode<String,String> {
     @Override
     public void begin() {
         super.begin();
-        System.out.println(this.nodeName() + "开始执行");
+        System.out.println(this.taskName + "开始执行");
     }
 
     @Override
     public void result(boolean success, String param, WorkResult<String> workResult) {
         if (success) {
-            System.out.println(nodeName()+" 运行完成 callback success--" + SystemClock.now() + "----" + workResult.getResult()
+            System.out.println(this.taskName+" 运行完成 callback success--" + SystemClock.now() + "----" + workResult.getResult()
                     + "-threadName:" + Thread.currentThread().getName());
         } else {
-            System.err.println(nodeName()+" 运行完成 callback failure--"+this.getTaskName()+ "----"+ SystemClock.now() + "----" + workResult.getResult()
+            System.err.println(this.taskName+" 运行完成 callback failure--"+this.getTaskName()+ "----"+ SystemClock.now() + "----" + workResult.getResult()
                     + "-threadName:" + Thread.currentThread().getName());
         }
     }
@@ -51,5 +43,4 @@ public class Node1 extends AbstractNode<String,String> {
     public String defaultValue() {
         return "worker0--default";
     }
-
 }

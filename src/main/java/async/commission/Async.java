@@ -8,7 +8,8 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 /**
- * 类入口，可以根据自己情况调整core线程的数量
+ * 并行任务门面
+ * 线程池数量可以根据自己情况调整core线程的数量
  */
 public class Async<T, V> {
     /**
@@ -20,7 +21,7 @@ public class Async<T, V> {
      */
     private static ExecutorService executorService;
 
-    public static Map<String, AbstractNode> beginWork(long timeout, Context context, ExecutorService executorService, List<AbstractNode> nodes) {
+    public static Map<String, AbstractNode> startWork(long timeout, Context context, ExecutorService executorService, List<AbstractNode> nodes) {
         if (nodes == null || nodes.size() == 0) {
             return new ConcurrentHashMap<>();
         }
@@ -49,21 +50,21 @@ public class Async<T, V> {
         return forParamUseWrappers;
     }
     /**
-     * 如果想自定义线程池，请传pool。不自定义的话，就走默认的COMMON_POOL
+     * 如果想自定义线程池，请传pool，不自定义的话，就走默认的COMMON_POOL
      */
-    public static Map<String, AbstractNode> beginWork(long timeout, Context context, ExecutorService executorService, AbstractNode... nodes) throws ExecutionException, InterruptedException {
+    public static Map<String, AbstractNode> startWork(long timeout, Context context, ExecutorService executorService, AbstractNode... nodes) throws ExecutionException, InterruptedException {
         if (nodes == null || nodes.length == 0) {
             return new ConcurrentHashMap<>();
         }
         List<AbstractNode> nodeList = Arrays.stream(nodes).collect(Collectors.toList());
-        return beginWork(timeout, context, executorService, nodeList);
+        return startWork(timeout, context, executorService, nodeList);
     }
 
     /**
      * 同步阻塞,直到所有都完成,或失败
      */
-    public static Map<String, AbstractNode> beginWork(long timeout,Context context, AbstractNode... nodes) throws ExecutionException, InterruptedException {
-        return beginWork(timeout,context, COMMON_POOL, nodes);
+    public static Map<String, AbstractNode> startWork(long timeout, Context context, AbstractNode... nodes) throws ExecutionException, InterruptedException {
+        return startWork(timeout,context, COMMON_POOL, nodes);
     }
     /**
      * 总共多少个执行单元

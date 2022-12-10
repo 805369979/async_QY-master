@@ -54,7 +54,7 @@ public class MissionProcess2 {
         System.out.println("begin-" + now);
 
         // 开始执行任务
-        Map<String, AbstractNode> results = Async.beginWork(100000L, context1, node1);
+        Map<String, AbstractNode> results = Async.startWork(100000L, context1, node1);
 //        results.forEach((k,v)->{
 //            System.out.println(v.getWorkResult());
 //        });

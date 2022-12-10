@@ -5,6 +5,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -25,6 +27,15 @@ public class SpringUtil implements ApplicationContextAware {
     public static Object getBean(String name) {
         return getApplicationContext().getBean(name);
     }
+
+    public static List<Object> getBeansByNames(String... name) {
+        ArrayList<Object> lists = new ArrayList<>();
+        for (String n : name){
+            lists.add(SpringUtil.getBean(n));
+        }
+        return lists;
+    }
+
 
     public static <T> T getBean(Class<T> clazz) {
         return getApplicationContext().getBean(clazz);

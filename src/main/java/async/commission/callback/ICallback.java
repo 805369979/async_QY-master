@@ -3,7 +3,7 @@ package async.commission.callback;
 import async.commission.entity.WorkResult;
 
 /**
- * 每个执行单元执行完毕后，会回调该接口</p>
+ * 每个执行单元执行完毕后，会回调该接口
  * 需要监听执行结果的，实现该接口即可
  * */
 @FunctionalInterface

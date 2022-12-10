@@ -11,7 +11,6 @@ import java.util.concurrent.ExecutionException;
 
 @Component("MissionProcess3")
 public class MissionProcess3 {
-
     public void run() throws InterruptedException, ExecutionException {
         Node1 node1 = new Node1();
         Node2 node2 = new Node2();
@@ -54,7 +53,7 @@ public class MissionProcess3 {
         System.out.println("begin-" + now);
 
         // 开始执行任务
-        Map<String, AbstractNode> results = Async.beginWork(100000L, context1, node1);
+        Map<String, AbstractNode> results = Async.startWork(100000L, context1, node1);
 //        results.forEach((k,v)->{
 //            System.out.println(v.getWorkResult());
 //        });

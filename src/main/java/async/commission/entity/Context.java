@@ -7,20 +7,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.*;
 
 /**
- * 推演上下文
+ * 任务节点上下文，适用配置不变的参数
  */
 @Data
 public class Context {
 
-    public Context() {
-
-    }
+    public Context() {}
 
     public Context(Map<String, Object> params) {
         this.params = params;
     }
-
-    private volatile HashSet<String> choose = new HashSet<>();
 
     private Map<String, Object> params = new HashMap<String, Object>();
 
@@ -49,7 +45,6 @@ public class Context {
     /**
      * Getter method for property <tt>params</tt>
      *
-     * @return property value of params
      */
     public Map<String, Object> getParams() {
         return params;
@@ -57,8 +52,6 @@ public class Context {
 
     /**
      * Setter method for property <tt>params</tt>
-     *
-     * @param params value to be assigned to property code
      */
     public void setParams(Map<String, Object> params) {
         this.params = params;
